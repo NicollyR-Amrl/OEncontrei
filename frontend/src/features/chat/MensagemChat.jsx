@@ -2,6 +2,27 @@
 
 import { useAuth } from '../autenticacao/useAuth';
 
+// Converte markdown básico em HTML para exibição limpa
+function renderMarkdown(texto) {
+  if (!texto) return '';
+
+  let html = texto
+    // Escapa HTML para segurança
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    // **negrito**
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    // *itálico*
+    .replace(/\*(.+?)\*/g, '<em>$1</em>')
+    // Listas numeradas: "1. item" → <br>• item
+    .replace(/^\d+\.\s+/gm, '• ')
+    // Quebras de linha
+    .replace(/\n/g, '<br />');
+
+  return html;
+}
+
 export default function MensagemChat({ mensagem }) {
   const { usuario } = useAuth();
   const ehMinha = mensagem.remetenteId === usuario?.id || mensagem.remetente?.id === usuario?.id;
@@ -21,7 +42,10 @@ export default function MensagemChat({ mensagem }) {
         )}
 
         {/* Conteúdo */}
-        <p className="text-sm leading-relaxed break-words">{mensagem.conteudo}</p>
+        <p
+          className="text-sm leading-relaxed break-words"
+          dangerouslySetInnerHTML={{ __html: renderMarkdown(mensagem.conteudo) }}
+        />
 
         {/* Timestamp */}
         <p className={`text-[10px] mt-1 ${

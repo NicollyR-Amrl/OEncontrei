@@ -76,23 +76,26 @@ function gerarDescricaoLocal(titulo, descricaoAtual, categoria) {
     return desc;
   }
 
+  // Textos neutros por categoria — sem inventar cor, estado, capacidade ou uso
   const templates = {
-    GARRAFA: `Garrafa ou copo tipo squeeze/térmico (${tit}). Item em bom estado de conservação, de uso pessoal para bebidas. Recomenda-se verificar detalhes específicos como cor exata, marca, adesivos ou capacidade para confirmação de propriedade.`,
-    ELETRONICO: `Dispositivo eletrônico (${tit}). Aparelho em bom estado de conservação, recolhido nas dependências da instituição. Favor verificar marca, modelo, número de série ou acessórios para retirada segura.`,
-    ROUPA: `Peça de vestuário (${tit}). Encontra-se limpa e bem conservada, sem danos aparentes. O proprietário deve conferir tamanho, marca e etiquetas para identificação.`,
-    MATERIAL_ESCOLAR: `Item de material escolar (${tit}). Indispensável para rotina de estudos, em ótimo estado de uso. Favor verificar se há etiquetas com nome, turma ou características marcantes.`,
-    ACESSORIO: `Acessório de uso pessoal (${tit}). Item bem conservado e com detalhes característicos. Verifique marcas de uso, fechos ou gravações para identificação.`,
-    DOCUMENTO: `Documento ou identificação pessoal (${tit}). Guardado com segurança para proteção dos dados do titular. A retirada deve ser feita mediante apresentação de comprovante ou dados cadastrais.`,
-    CHAVE: `Chave(s) com ou sem chaveiro (${tit}). Objeto essencial recolhido no ambiente escolar. Favor descrever o chaveiro, quantidade de chaves ou detalhes do segredo para conferência.`,
-    OUTRO: `Item identificado como "${tit}". Encontra-se guardado e disponível para identificação e retirada pelo proprietário mediante descrição de características específicas.`
+    GARRAFA: `Garrafa ou copo recolhido nas dependências da instituição.`,
+    ELETRONICO: `Dispositivo eletrônico recolhido nas dependências da instituição.`,
+    ROUPA: `Peça de vestuário recolhida nas dependências da instituição.`,
+    MATERIAL_ESCOLAR: `Item de material escolar recolhido nas dependências da instituição.`,
+    ACESSORIO: `Acessório de uso pessoal recolhido nas dependências da instituição.`,
+    DOCUMENTO: `Documento ou identificação pessoal recolhido nas dependências da instituição.`,
+    CHAVE: `Chave(s) recolhida(s) nas dependências da instituição.`,
+    OUTRO: `Item recolhido nas dependências da instituição.`
   };
 
   const baseDesc = templates[categoria] || templates.OUTRO;
+
   if (desc && desc.toLowerCase() !== tit.toLowerCase()) {
-    return `${baseDesc} Observação adicional: ${desc}.`;
+    return `${baseDesc} Observação: ${desc}.`;
   }
   return baseDesc;
 }
+
 
 /**
  * Função utilitária para chamar a API OpenRouter (Qwen / Nemotron)
@@ -101,7 +104,7 @@ async function chamarQwen(prompt, systemPrompt = 'Você é um assistente IA úti
   const apiKey = process.env.OPENROUTER_API_KEY ? process.env.OPENROUTER_API_KEY.trim() : null;
   if (!apiKey) return null;
 
-  const modelo = process.env.OPENROUTER_MODEL || 'nvidia/nemotron-3.5-lightning';
+  const modelo = process.env.OPENROUTER_MODEL || 'meta-llama/llama-3.1-8b-instruct:free';
 
   try {
     const controller = new AbortController();
@@ -137,9 +140,16 @@ async function chamarQwen(prompt, systemPrompt = 'Você é um assistente IA úti
 
     const data = await response.json();
     const msg = data.choices?.[0]?.message;
-    let content = msg?.content?.trim() || null;
+
+    // Alguns modelos de raciocínio (ex: nemotron) retornam em 'reasoning' em vez de 'content'
+    let content =
+      msg?.content?.trim() ||
+      msg?.reasoning?.trim() ||
+      data.choices?.[0]?.message?.reasoning_details?.[0]?.text?.trim() ||
+      null;
+
     if (content) {
-      // Remove tags <think>...</think> se existirem no retorno do modelo
+      // Remove tags <think>...</think> e bloco de raciocínio interno se existirem
       content = content.replace(/<think>[\s\S]*?<\/think>/gi, '').trim();
     }
     return content;
@@ -209,7 +219,7 @@ Analise as informações do item e realize duas tarefas:
    - GARRAFA (garrafas de água, squeezes, copos térmicos, canecas, cantis)
    - OUTRO (apenas se realmente não se encaixar em nenhuma das categorias acima)
 
-2. Crie uma descrição aprimorada, detalhada e bem redigida em português (2 a 4 frases), destacando características prováveis (como cor, material, formato, detalhes de conservação ou recomendações de identificação) para facilitar que o dono ou quem encontrou consiga identificar o item.
+2. Reescreva a descrição de forma clara e bem redigida em português (1 a 3 frases), usando APENAS as informações que o usuário forneceu no título e na descrição informada. NÃO invente, suponha ou acrescente nenhuma característica que não tenha sido explicitamente mencionada pelo usuário (como cor, tamanho, capacidade, material, estado de conservação ou uso).
 
 Item a analisar:
 - Título: "${titulo}"
@@ -218,7 +228,7 @@ Item a analisar:
 Responda ESTRITAMENTE em formato JSON com as chaves "categoria" e "descricaoAprimorada":
 {
   "categoria": "GARRAFA",
-  "descricaoAprimorada": "Garrafa de água modelo squeeze na cor azul, com tampa de rosca e capacidade aproximada de 500ml a 750ml. Objeto em ótimo estado de conservação, de uso escolar diário. Recomenda-se conferir eventuais marcas, adesivos ou nome do titular gravado para confirmação."
+  "descricaoAprimorada": "Garrafa de água azul com arranhão na parte inferior. Recomenda-se verificar marcas, adesivos ou nome gravado para confirmar a propriedade."
 }`;
 
   const resposta = await chamarQwen(
