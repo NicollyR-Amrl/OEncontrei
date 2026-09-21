@@ -28,4 +28,8 @@ backup_stub/
 oencontrei_backup_stub/
 *.db
 login.json
+docs/Trabalho_Academico_OEncontrei_ABNT.md
 
+
+.vercel
+.env*
