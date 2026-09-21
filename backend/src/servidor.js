@@ -188,12 +188,14 @@ app.use((err, req, res, next) => {
   });
 });
 
-// Iniciar servidor
-const PORT = process.env.PORT || 3000;
-server.listen(PORT, () => {
-  console.log(`🚀 O Encontrei! Backend rodando na porta ${PORT}`);
-  console.log(`📡 Socket.io pronto para conexões`);
-});
+// Iniciar servidor apenas se executado diretamente
+if (require.main === module) {
+  const PORT = process.env.PORT || 3000;
+  server.listen(PORT, () => {
+    console.log(`🚀 O Encontrei! Backend rodando na porta ${PORT}`);
+    console.log(`📡 Socket.io pronto para conexões`);
+  });
+}
 
 // Graceful shutdown
 process.on('SIGINT', async () => {
@@ -201,4 +203,8 @@ process.on('SIGINT', async () => {
   process.exit(0);
 });
 
-module.exports = { app, server, io };
+module.exports = app;
+module.exports.app = app;
+module.exports.server = server;
+module.exports.io = io;
+
