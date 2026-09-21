@@ -54,7 +54,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Servir uploads estáticos
+const os = require('os');
 app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads')));
+app.use('/uploads', express.static(path.join(os.tmpdir(), 'uploads')));
 
 // Disponibilizar prisma e io para as rotas
 app.set('prisma', prisma);

@@ -4,16 +4,28 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 
-// Garantir que o diretório de uploads existe
-const uploadDir = path.join(__dirname, '..', '..', 'uploads');
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir, { recursive: true });
-}
+const os = require('os');
+
+// Garantir que o diretório de uploads existe (suporta Vercel Serverless /tmp)
+const getUploadDir = () => {
+  let dir = process.env.VERCEL ? path.join(os.tmpdir(), 'uploads') : path.join(__dirname, '..', '..', 'uploads');
+  try {
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
+  } catch (err) {
+    dir = path.join(os.tmpdir(), 'uploads');
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
+  }
+  return dir;
+};
 
 // Configuração do armazenamento
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, uploadDir);
+    cb(null, getUploadDir());
   },
   filename: (req, file, cb) => {
     const nomeUnico = `${Date.now()}-${Math.round(Math.random() * 1E9)}`;
