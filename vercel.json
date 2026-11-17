@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "installCommand": "npm install --include=dev && cd backend && npm install --include=dev && npx prisma generate && cd ../frontend && npm install --include=dev",
+  "installCommand": "npm install && cd frontend && npm install",
   "buildCommand": "cd frontend && npm run build",
   "outputDirectory": "frontend/dist",
   "functions": {

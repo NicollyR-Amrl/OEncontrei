@@ -1,7 +1,9 @@
 // Servidor principal do "O Encontrei!"
 // Inicializa Express, Socket.io (apenas local), e todas as rotas
 
-require('dotenv').config();
+try {
+  require('dotenv').config();
+} catch (e) {}
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
