@@ -118,7 +118,11 @@ const login = async (req, res) => {
     });
   } catch (erro) {
     console.error('Erro no login:', erro);
-    res.status(500).json({ erro: true, mensagem: 'Erro ao fazer login' });
+    res.status(500).json({
+      erro: true,
+      mensagem: erro.message ? `Erro no servidor: ${erro.message}` : 'Erro ao fazer login',
+      detalhes: erro.code || null
+    });
   }
 };
 

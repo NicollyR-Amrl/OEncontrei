@@ -55,9 +55,35 @@ app.use('/uploads', express.static(path.join(os.tmpdir(), 'uploads')));
 // Disponibilizar prisma para as rotas
 app.set('prisma', prisma);
 
-// Rota de saúde
-app.get(['/', '/saude', '/api', '/api/saude'], (req, res) => {
-  res.json({ status: 'ok', mensagem: 'O Encontrei! API está funcionando 🎉', serverless: isServerless });
+// Rota de saúde com diagnóstico de banco
+app.get(['/', '/saude', '/api', '/api/saude'], async (req, res) => {
+  let dbStatus = 'desconhecido';
+  let dbError = null;
+  let usuariosCadastrados = 0;
+
+  if (!process.env.DATABASE_URL) {
+    dbStatus = 'DATABASE_URL não configurada nas variáveis de ambiente da Vercel';
+  } else {
+    try {
+      usuariosCadastrados = await prisma.usuario.count();
+      dbStatus = 'conectado';
+    } catch (e) {
+      dbStatus = 'falha de conexão';
+      dbError = e.message;
+    }
+  }
+
+  res.json({
+    status: 'ok',
+    mensagem: 'O Encontrei! API está funcionando 🎉',
+    serverless: isServerless,
+    bancoDeDados: {
+      status: dbStatus,
+      temDatabaseUrl: !!process.env.DATABASE_URL,
+      usuariosCadastrados,
+      erro: dbError
+    }
+  });
 });
 
 // Importar rotas
