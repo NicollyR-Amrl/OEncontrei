@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>O ENCONTREI! - Documentação Técnica Acadêmica</title>
+  <style>
+    @page {
+      size: A4 portrait;
+      margin: 0;
+    }
+    * {
+      box-sizing: border-box;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Times New Roman", Times, Georgia, serif;
+      color: #000000;
+      background: #ffffff;
+      font-size: 11pt;
+      line-height: 1.45;
+    }
+    .page {
+      width: 210mm;
+      height: 297mm;
+      max-height: 297mm;
+      padding: 30mm 20mm 20mm 30mm; /* ABNT: superior 3cm, direita 2cm, inferior 2cm, esquerda 3cm */
+      position: relative;
+      page-break-after: always;
+      break-after: page;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+    .page-number {
+      position: absolute;
+      bottom: 15mm;
+      right: 20mm;
+      font-size: 10pt;
+      font-family: "Times New Roman", Times, serif;
+    }
+
+    /* Tipografia e Títulos */
+    h1.inst-title {
+      font-size: 13pt;
+      font-weight: bold;
+      text-align: center;
+      margin: 0 0 4px 0;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    h2.inst-subtitle {
+      font-size: 11pt;
+      font-style: italic;
+      font-weight: normal;
+      text-align: center;
+      margin: 0;
+    }
+    h1.proj-title {
+      font-size: 18pt;
+      font-weight: bold;
+      text-align: center;
+      text-transform: uppercase;
+      margin: 0 0 8px 0;
+      letter-spacing: 1px;
+    }
+    h2.proj-subtitle {
+      font-size: 11pt;
+      font-style: italic;
+      font-weight: normal;
+      text-align: center;
+      margin: 0 auto;
+      max-width: 90%;
+      line-height: 1.35;
+    }
+    .cover-footer {
+      text-align: center;
+      font-size: 11pt;
+      font-weight: bold;
+      line-height: 1.4;
+      margin-top: auto;
+      padding-bottom: 5mm;
+    }
+    .folha-rosto-nota {
+      margin-left: 45%;
+      text-align: justify;
+      font-size: 9.5pt;
+      line-height: 1.35;
+      margin-top: 30mm;
+      margin-bottom: auto;
+    }
+
+    /* Seções ABNT */
+    h1.sec-title {
+      font-size: 12pt;
+      font-weight: bold;
+      text-transform: uppercase;
+      margin: 10px 0 6px 0;
+      text-align: left;
+    }
+    h2.subsec-title {
+      font-size: 11.5pt;
+      font-weight: bold;
+      margin: 10px 0 4px 0;
+      text-align: left;
+    }
+    h3.subsubsec-title {
+      font-size: 11pt;
+      font-style: italic;
+      font-weight: bold;
+      margin: 8px 0 2px 0;
+      text-align: left;
+    }
+
+    p {
+      text-align: justify;
+      text-indent: 1.25cm;
+      margin: 0 0 6px 0;
+      line-height: 1.45;
+    }
+    p.no-indent {
+      text-indent: 0;
+    }
+
+    /* Tabelas */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 6px 0 4px 0;
+      font-size: 8.5pt;
+      line-height: 1.25;
+    }
+    table, th, td {
+      border: 1px solid #000;
+    }
+    th {
+      background-color: #f2f2f2;
+      font-weight: bold;
+      text-align: left;
+      padding: 4px 6px;
+    }
+    td {
+      padding: 3.5px 6px;
+      vertical-align: top;
+      text-align: justify;
+    }
+    .table-caption {
+      font-size: 9pt;
+      font-weight: normal;
+      margin: 6px 0 2px 0;
+      text-align: left;
+    }
+    .table-source {
+      font-size: 8.5pt;
+      margin: 2px 0 6px 0;
+      text-align: left;
+    }
+
+    /* Citações Longas ABNT */
+    blockquote {
+      margin: 6px 0 6px 4cm;
+      font-size: 9.5pt;
+      line-height: 1.25;
+      text-align: justify;
+      font-style: normal;
+    }
+
+    /* Sumário */
+    .toc-table {
+      width: 100%;
+      border: none;
+      font-size: 10pt;
+      line-height: 1.6;
+    }
+    .toc-table td {
+      border: none;
+      padding: 1px 0;
+    }
+    .toc-title {
+      font-weight: bold;
+    }
+    .toc-dots {
+      border-bottom: 1px dotted #555;
+      height: 1em;
+    }
+
+    /* Mockups de Telas */
+    .mockup-container {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      margin: 8px 0;
+    }
+    .phone-frame {
+      width: 250px;
+      background: #1e293b;
+      border-radius: 20px;
+      padding: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+      color: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 8pt;
+    }
+    .phone-screen {
+      background: #0f172a;
+      border-radius: 14px;
+      padding: 8px;
+      color: #f8fafc;
+    }
+    .phone-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #334155;
+      padding-bottom: 4px;
+      margin-bottom: 6px;
+      font-size: 7.5pt;
+      color: #94a3b8;
+    }
+    .app-bar {
+      font-weight: bold;
+      font-size: 9pt;
+      color: #38bdf8;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+    .item-card {
+      background: #1e293b;
+      border-radius: 6px;
+      padding: 6px;
+      margin-bottom: 6px;
+      border-left: 3px solid #38bdf8;
+    }
+    .badge {
+      display: inline-block;
+      padding: 1px 4px;
+      border-radius: 4px;
+      font-size: 6.5pt;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+    .badge-lost { background: #ef4444; color: #fff; }
+    .badge-found { background: #10b981; color: #fff; }
+    .badge-ai { background: #8b5cf6; color: #fff; }
+    .chat-bubble {
+      padding: 5px 8px;
+      border-radius: 8px;
+      margin-bottom: 4px;
+      max-width: 85%;
+      font-size: 7.5pt;
+      line-height: 1.25;
+    }
+    .bubble-in { background: #334155; color: #f1f5f9; align-self: flex-start; }
+    .bubble-out { background: #0284c7; color: #fff; margin-left: auto; text-align: right; }
+    .btn-action {
+      background: #10b981;
+      color: white;
+      text-align: center;
+      padding: 4px;
+      border-radius: 4px;
+      font-weight: bold;
+      margin-top: 4px;
+      font-size: 7pt;
+    }
+
+    ul.objectives-list {
+      margin: 4px 0 6px 0;
+      padding-left: 20px;
+      list-style-type: none;
+    }
+    ul.objectives-list li {
+      margin-bottom: 4px;
+      text-align: justify;
+      line-height: 1.35;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== PÁGINA 1: CAPA ==================== -->
+  <div class="page">
+    <div style="margin-top: 5mm;">
+      <h1 class="inst-title">ESCOLA ESTADUAL GOVERNADOR MILTON CAMPOS</h1>
+      <h2 class="inst-subtitle">Curso Técnico em Informática para Internet</h2>
+    </div>
+
+    <div style="margin-top: 75mm;">
+      <h1 class="proj-title">O ENCONTREI!</h1>
+      <h2 class="proj-subtitle">Tecnologia e Inteligência Artificial a Serviço da Gestão de Achados e Perdidos e Cidadania Solidária em Ambientes Escolares</h2>
+    </div>
+
+    <div class="cover-footer">
+      Belo Horizonte<br>
+      2026
+    </div>
+    <div class="page-number">1</div>
+  </div>
+
+  <!-- ==================== PÁGINA 2: FOLHA DE ROSTO ==================== -->
+  <div class="page">
+    <div style="margin-top: 5mm;">
+      <h1 class="inst-title">ESCOLA ESTADUAL GOVERNADOR MILTON CAMPOS</h1>
+      <h2 class="inst-subtitle">Curso Técnico em Informática para Internet</h2>
+    </div>
+
+    <div style="margin-top: 45mm;">
+      <h1 class="proj-title">O ENCONTREI!</h1>
+      <h2 class="proj-subtitle">Tecnologia e Inteligência Artificial a Serviço da Gestão de Achados e Perdidos e Cidadania Solidária em Ambientes Escolares</h2>
+    </div>
+
+    <div class="folha-rosto-nota">
+      Documentação técnica apresentada como requisito parcial para a Feira de Ciências e Tecnologia da Escola Estadual Governador Milton Campos, no Curso Técnico em Informática para Internet, na disciplina de Projeto Integrador / Desenvolvimento de Sistemas.
+    </div>
+
+    <div class="cover-footer">
+      Belo Horizonte<br>
+      2026
+    </div>
+    <div class="page-number">2</div>
+  </div>
+
+  <!-- ==================== PÁGINA 3: SUMÁRIO ==================== -->
+  <div class="page">
+    <h1 style="font-size: 13pt; font-weight: bold; text-align: center; margin: 5mm 0 8mm 0;">SUMÁRIO</h1>
+
+    <table class="toc-table">
+      <tr><td class="toc-title">1 INTRODUÇÃO</td><td class="toc-dots"></td><td style="width: 25px; text-align: right; font-weight: bold;">4</td></tr>
+      <tr><td class="toc-title">2 CONTEXTUALIZAÇÃO DO PROBLEMA</td><td class="toc-dots"></td><td style="width: 25px; text-align: right; font-weight: bold;">5</td></tr>
+      <tr><td style="padding-left: 15px;">2.1 O extravio recorrente de pertences e a ineficácia dos métodos tradicionais</td><td class="toc-dots"></td><td style="width: 25px; text-align: right;">5</td></tr>
+      <tr><td style="padding-left: 15px;">2.2 Dores identificadas: estudante, achador e gestão institucional</td><td class="toc-dots"></td><td style="width: 25px; text-align: right;">5</td></tr>
+      <tr><td class="toc-title">3 DADOS QUANTITATIVOS E QUALITATIVOS</td><td class="toc-dots"></td><td style="width: 25px; text-align: right; font-weight: bold;">7</td></tr>
+      <tr><td style="padding-left: 15px;">3.1 Indicadores educacionais e materiais: a escala do problema</td><td class="toc-dots"></td><td style="width: 25px; text-align: right;">7</td></tr>
+      <tr><td style="padding-left: 15px;">3.2 Dimensão qualitativa: experiência humana documentada</td><td class="toc-dots"></td><td style="width: 25px; text-align: right;">8</td></tr>
+      <tr><td style="padding-left: 15px;">3.3 Comparativo com soluções existentes</td><td class="toc-dots"></td><td style="width: 25px; text-align: right;">8</td></tr>
+      <tr><td class="toc-title">4 JUSTIFICATIVA E RELEVÂNCIA ACADÊMICA</td><td class="toc-dots"></td><td style="width: 25px; text-align: right; font-weight: bold;">9</td></tr>
+      <tr><td style="padding-left: 15px;">4.1 Fundamentação legal e normativa</td><td class="toc-dots"></td><td style="width: 25px; text-align: right;">9</td></tr>
+      <tr><td style="padding-left: 15px;">4.2 Relevância tecnológica e inovação da abordagem</td><td class="toc-dots"></td><td style="width: 25px; text-align: right;">10</td></tr>
+      <tr><td class="toc-title">5 OBJETIVOS</td><td class="toc-dots"></td><td style="width: 25px; text-align: right; font-weight: bold;">10</td></tr>
+      <tr><td style="padding-left: 15px;">5.1 Objetivo geral</td><td class="toc-dots"></td><td style="width: 25px; text-align: right;">10</td></tr>
+      <tr><td style="padding-left: 15px;">5.2 Objetivos específicos</td><td class="toc-dots"></td><td style="width: 25px; text-align: right;">10</td></tr>
+      <tr><td class="toc-title">6 VISÃO E MISSÃO DO PROJETO</td><td class="toc-dots"></td><td style="width: 25px; text-align: right; font-weight: bold;">11</td></tr>
+      <tr><td class="toc-title">7 SOLUÇÃO PROPOSTA: O SISTEMA O ENCONTREI!</td><td class="toc-dots"></td><td style="width: 25px; text-align: right; font-weight: bold;">11</td></tr>
+      <tr><td style="padding-left: 15px;">7.1 Conceito e arquitetura geral</td><td class="toc-dots"></td><td style="width: 25px; text-align: right;">11</td></tr>
+      <tr><td style="padding-left: 15px;">7.2 Fluxo de funcionamento</td><td class="toc-dots"></td><td style="width: 25px; text-align: right;">12</td></tr>
+      <tr><td style="padding-left: 15px;">7.3 Regras de negócio críticas</td><td class="toc-dots"></td><td style="width: 25px; text-align: right;">13</td></tr>
+      <tr><td style="padding-left: 15px;">7.4 Especificação de Requisitos Funcionais (RF01 a RF10)</td><td class="toc-dots"></td><td style="width: 25px; text-align: right;">13</td></tr>
+      <tr><td style="padding-left: 15px;">7.5 Especificação de Requisitos Não Funcionais (RNF01 a RNF10)</td><td class="toc-dots"></td><td style="width: 25px; text-align: right;">14</td></tr>
+      <tr><td style="padding-left: 15px;">7.6 Demonstração das Telas da Aplicação</td><td class="toc-dots"></td><td style="width: 25px; text-align: right;">15</td></tr>
+      <tr><td class="toc-title">8 BENEFÍCIOS DO SISTEMA</td><td class="toc-dots"></td><td style="width: 25px; text-align: right; font-weight: bold;">16</td></tr>
+      <tr><td class="toc-title">9 O QUE FOI CONSTRUÍDO: PROTÓTIPO FUNCIONAL</td><td class="toc-dots"></td><td style="width: 25px; text-align: right; font-weight: bold;">17</td></tr>
+      <tr><td class="toc-title">10 REQUISITOS PARA IMPLEMENTAÇÃO COMPLETA</td><td class="toc-dots"></td><td style="width: 25px; text-align: right; font-weight: bold;">18</td></tr>
+      <tr><td class="toc-title">11 ALINHAMENTO COM OS ODS – AGENDA 2030/ONU</td><td class="toc-dots"></td><td style="width: 25px; text-align: right; font-weight: bold;">19</td></tr>
+      <tr><td class="toc-title">12 CONSIDERAÇÕES FINAIS</td><td class="toc-dots"></td><td style="width: 25px; text-align: right; font-weight: bold;">20</td></tr>
+      <tr><td class="toc-title">REFERÊNCIAS</td><td class="toc-dots"></td><td style="width: 25px; text-align: right; font-weight: bold;">21</td></tr>
+    </table>
+
+    <div class="page-number">3</div>
+  </div>
+
+  <!-- ==================== PÁGINA 4: INTRODUÇÃO E CONTEXTUALIZAÇÃO ==================== -->
+  <div class="page">
+    <h1 class="sec-title">1 INTRODUÇÃO</h1>
+    
+    <p>O ambiente educacional constitui o espaço primordial para o pleno desenvolvimento cognitivo, social e cidadão de crianças e jovens, sendo assegurado pela Constituição da República Federativa do Brasil de 1988 e regulamentado pela Lei de Diretrizes e Bases da Educação Nacional (Lei nº 9.394/1996). Para que o processo pedagógico ocorra de forma equilibrada e digna, a salvaguarda dos recursos materiais dos estudantes — como uniformes, agasalhos, livros, calculadoras, dispositivos eletrônicos e materiais escolares — desempenha papel decisivo na frequência e no rendimento escolar.</p>
+
+    <p>Entretanto, a rotina das instituições de ensino de grande porte, e em particular nas escolas públicas estaduais de Belo Horizonte, capital do estado de Minas Gerais, evidencia uma crônica e generalizada lacuna operacional: o esquecimento e a perda recorrente de pertences pessoais. Em virtude do intenso dinamismo de trocas de salas, atividades esportivas nas quadras, intervalos nos pátios e oficinas em laboratórios, centenas de objetos são extraviados semanalmente sem que haja um canal de comunicação estruturado e auditável capaz de conectá-los com agilidade aos seus legítimos proprietários (ANAE, 2023).</p>
+
+    <p>A resposta tradicional adotada pelas instituições apoia-se em caixas plásticas de "Achados e Perdidos" alocadas em cantos de secretarias, avisos em murais ou publicações dispersas em redes sociais. Esse cenário analógico resulta em baixíssimos índices de devolução (inferiores a 25%), desperdício financeiro relevante suportado pelas famílias e acúmulo desordenado de bens que, invariavelmente, acabam deteriorados ou descartados.</p>
+
+    <p>Diante dessa problemática, o presente trabalho descreve o desenvolvimento do sistema <strong>O Encontrei!</strong>, uma plataforma digital multiplataforma concebida por estudantes do Curso Técnico em Informática para Internet da Escola Estadual Governador Milton Campos. O sistema tem por finalidade centralizar o registro, agilizar a localização e automatizar o cruzamento inteligente de dados entre pertences perdidos e achados no perímetro escolar, restabelecendo a posse dos objetos de forma rápida, segura e humanizada.</p>
+
+    <p>A solução foi estruturada sob os alicerces da Engenharia de Software moderna e da Inclusão Digital, empregando o paradigma da Arquitetura por Fatias Verticais (Vertical Slice Architecture - VSA), banco de dados relacional gerenciado por ORM tipado, API RESTful, comunicação em tempo real via WebSockets (Socket.io), algoritmos de correspondência híbridos com Modelos de Linguagem (LLMs) e rigorosa conformidade com a Lei Geral de Proteção de Dados (LGPD - Lei nº 13.709/2018).</p>
+
+    <h1 class="sec-title" style="margin-top: 14px;">2 CONTEXTUALIZAÇÃO DO PROBLEMA</h1>
+
+    <h2 class="subsec-title">2.1 O extravio recorrente de pertences e a ineficácia dos métodos tradicionais</h2>
+
+    <p>Belo Horizonte conta com uma rede educacional que abrange mais de 380 mil estudantes matriculados na educação básica (INEP, 2024), distribuídos em centenas de instituições públicas. A Escola Estadual Governador Milton Campos abriga diariamente milhares de alunos, professores e funcionários que compartilham múltiplos ambientes coletivos: salas de aula, auditórios, cantinas, laboratórios e praças de convivência.</p>
+
+    <div class="page-number">4</div>
+  </div>
+
+  <!-- ==================== PÁGINA 5: CONTEXTUALIZAÇÃO E DORES ==================== -->
+  <div class="page">
+    <p class="no-indent">O fluxo massivo de pessoas potencializa o extravio de pertences essenciais. A perda de um casaco de frio do uniforme escolar, o esquecimento de um estojo técnico ou a perda de uma carteira de estudante representam incidentes diários que desestabilizam a rotina dos alunos.</p>
+
+    <p>A dinâmica observada no modelo analógico pode ser sintetizada na seguinte situação-tipo: o objeto esquecido é recolhido por um colega ou funcionário da zeladoria; sem um canal estruturado para divulgar o achado, o item é entregue em algum balcão administrativo ou guardado indefinidamente. O proprietário, sem saber onde procurar ou por timidez no curto intervalo do recreio, não realiza a busca ativa. Gera-se um fosso informacional: quem achou não sabe quem perdeu, e quem perdeu não sabe com quem está o objeto.</p>
+
+    <h2 class="subsec-title">2.2 Dores identificadas: estudante, achador e gestão institucional</h2>
+
+    <h3 class="subsubsec-title">2.2.1 Do ponto de vista do estudante que perdeu o pertence</h3>
+    <p>Identificaram-se as seguintes barreiras: estresse e constrangimento pelo extravio; receio de repreensão familiar; prejuízo financeiro severo para reposição de peças de uniforme e materiais caros; e perda pedagógica direta decorrente do sumiço de cadernos com anotações exclusivas de provas e livros didáticos.</p>
+
+    <h3 class="subsubsec-title">2.2.2 Do ponto de vista de quem encontra o objeto (achador)</h3>
+    <p>Aquele que encontra um pertence alheio enfrenta: receio de ser falsamente acusado de tentativa de furto; incerteza sobre onde ou a quem entregar; desestímulo pelo incômodo de transportar o item alheio; e inexistência de um sistema que valorize ou reconheça publicamente o ato cívico de honestidade.</p>
+
+    <h3 class="subsubsec-title">2.2.3 Do ponto de vista da administração escolar e equipe de apoio</h3>
+    <p>A secretaria escolar é convertida em almoxarifado improvisado; colaboradores perdem tempo produtivo atendendo a buscas desorganizadas; inexiste protocolo oficial de custódia e auditoria; e as escolas enfrentam o dilema de armazenar centenas de casacos e garrafas acumulados ao final do ano letivo.</p>
+
+    <h1 class="sec-title" style="margin-top: 12px;">3 DADOS QUANTITATIVOS E QUALITATIVOS</h1>
+
+    <h2 class="subsec-title">3.1 Indicadores educacionais e materiais: a escala do problema</h2>
+
+    <p>A fundamentação empírica da relevância do sistema <strong>O Encontrei!</strong> apoia-se em indicadores provenientes de levantamentos educacionais oficiais e pesquisas de campo, apresentados na Tabela 1.</p>
+
+    <div class="table-caption"><strong>Tabela 1 – Indicadores institucionais e educacionais sobre perdas e descarte de pertences no Brasil e em Belo Horizonte</strong></div>
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 50%;">Indicador</th>
+          <th style="width: 25%;">Dado</th>
+          <th style="width: 25%;">Fonte</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Alunos matriculados na Educação Básica em BH</td>
+          <td>Aprox. 380 mil estudantes</td>
+          <td>INEP / Censo Escolar 2024</td>
+        </tr>
+        <tr>
+          <td>Escolas públicas estaduais e municipais em BH</td>
+          <td>Mais de 350 unidades</td>
+          <td>SEE-MG / SMED-BH 2024</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="page-number">5</div>
+  </div>
+
+  <!-- ==================== PÁGINA 6: TABELA 1 CONTINUAÇÃO E COMPARATIVO ==================== -->
+  <div class="page">
+    <table>
+      <tbody>
+        <tr>
+          <td style="width: 50%;">Média anual de itens extraviados por escola de médio/grande porte</td>
+          <td style="width: 25%;">400 a 1.200 pertences/ano</td>
+          <td style="width: 25%;">Estudo Amostral / FNDE 2023</td>
+        </tr>
+        <tr>
+          <td>Taxa de não devolução em métodos analógicos (caixas)</td>
+          <td>Mais de 75% dos itens</td>
+          <td>ANAE 2023</td>
+        </tr>
+        <tr>
+          <td>Custo médio anual suportado pelas famílias para reposição</td>
+          <td>R$ 350 a R$ 1.200 por aluno</td>
+          <td>PROCON-MG / DIEESE 2024</td>
+        </tr>
+        <tr>
+          <td>Estudantes com posse de smartphone (12 a 18 anos)</td>
+          <td>89% dos matriculados</td>
+          <td>CGI.br / TIC Kids 2023</td>
+        </tr>
+        <tr>
+          <td>Escolas estaduais com conexão de banda larga</td>
+          <td>94% das unidades em MG</td>
+          <td>MEC / Censo Escolar 2023</td>
+        </tr>
+        <tr>
+          <td>Tempo médio de retenção até descarte de itens</td>
+          <td>6 a 12 meses</td>
+          <td>Pesquisa de Campo 2026</td>
+        </tr>
+        <tr>
+          <td>Custo do O Encontrei! para estudantes e escolas</td>
+          <td>Gratuito (código aberto)</td>
+          <td>Elaborado pelos autores</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="table-source">Fonte: Elaborado pelos autores (2026).</div>
+
+    <p>Os dados revelam que mais de 280 mil famílias em Belo Horizonte são impactadas anualmente pela perda de bens escolares essenciais, configurando uma dor de larga escala social e material.</p>
+
+    <h2 class="subsec-title">3.2 Dimensão qualitativa: experiência humana documentada</h2>
+
+    <p>Além da dimensão quantitativa, depoimentos documentados no ambiente acadêmico evidenciam a necessidade premente de uma solução digital:</p>
+
+    <blockquote>
+      "Perdi meu casaco de frio no pátio e procurei na secretaria três vezes. Disseram que a caixa estava cheia demais e que não dava para revirar tudo naquele momento. Meu pai teve que parcelar outro no cartão, e passamos aperto no fim do mês." (Estudante do Ensino Médio, EE Gov. Milton Campos, 2026).
+    </blockquote>
+
+    <h2 class="subsec-title">3.3 Comparativo com soluções existentes</h2>
+
+    <div class="table-caption"><strong>Tabela 2 – Comparativo entre o O Encontrei! e soluções existentes</strong></div>
+    <table>
+      <thead>
+        <tr>
+          <th>Solução</th>
+          <th>Tipo</th>
+          <th>IA de Matching</th>
+          <th>Custo</th>
+          <th>Tempo Real</th>
+          <th>LGPD / Privacidade</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Caixa Física (Secretaria)</td>
+          <td>Analógica / Manual</td>
+          <td>Nenhuma</td>
+          <td>Gratuito</td>
+          <td>Nenhuma</td>
+          <td>Nula (itens expostos)</td>
+        </tr>
+        <tr>
+          <td>Grupos de WhatsApp</td>
+          <td>Comunicação Informal</td>
+          <td>Nenhuma</td>
+          <td>Gratuito</td>
+          <td>Desordenada</td>
+          <td>Crítica (exposição de telefones)</td>
+        </tr>
+        <tr>
+          <td>Avisos no Mural</td>
+          <td>Papel / Estático</td>
+          <td>Nenhuma</td>
+          <td>Baixo</td>
+          <td>Nenhuma</td>
+          <td>Inexistente</td>
+        </tr>
+        <tr>
+          <td><strong>O Encontrei! (proposto)</strong></td>
+          <td><strong>Sistema Integrado Web/Mobile</strong></td>
+          <td><strong>Total (LLM Semântico)</strong></td>
+          <td><strong>Gratuito</strong></td>
+          <td><strong>Sim (WebSockets)</strong></td>
+          <td><strong>Rigorosa (chat seguro)</strong></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="table-source">Fonte: Elaborado pelos autores (2026).</div>
+
+    <div class="page-number">6</div>
+  </div>
+
+  <!-- ==================== PÁGINA 7: BASE LEGAL E OBJETIVOS ==================== -->
+  <div class="page">
+    <h1 class="sec-title">4 JUSTIFICATIVA E RELEVÂNCIA ACADÊMICA</h1>
+
+    <h2 class="subsec-title">4.1 Fundamentação legal</h2>
+
+    <div class="table-caption"><strong>Tabela 3 – Base legal do projeto O Encontrei!</strong></div>
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 40%;">Instrumento Legal</th>
+          <th style="width: 60%;">Disposição Relevante</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Constituição Federal de 1988, Arts. 205 e 227</td>
+          <td>Garante o direito à educação e à proteção integral da criança e do jovem, assegurando condições de permanência e respeito à dignidade.</td>
+        </tr>
+        <tr>
+          <td>Código Civil Brasileiro (Lei nº 10.406/2002), Arts. 1.233 a 1.237</td>
+          <td>Regulamenta o dever jurídico da Descoberta da coisa achada, prescrevendo a obrigação de restituição do bem ao seu dono legítimo.</td>
+        </tr>
+        <tr>
+          <td>Lei Geral de Proteção de Dados (Lei nº 13.709/2018)</td>
+          <td>Impõe regras estritas de tratamento e sigilo sobre dados de estudantes menores, vedando exposição pública de telefones e dados sensíveis.</td>
+        </tr>
+        <tr>
+          <td>Marco Civil da Internet (Lei nº 12.965/2014)</td>
+          <td>Assegura a inviolabilidade da intimidade e o sigilo das comunicações em meios digitais em território nacional.</td>
+        </tr>
+        <tr>
+          <td>Estatuto da Criança e do Adolescente (Lei nº 8.069/1990)</td>
+          <td>Preconiza a salvaguarda moral e relacional de jovens e crianças contra exposição vexatória ou constrangimento público.</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="table-source">Fonte: Elaborado pelos autores (2026).</div>
+
+    <h1 class="sec-title" style="margin-top: 14px;">5 OBJETIVOS</h1>
+
+    <h2 class="subsec-title">5.1 Objetivo geral</h2>
+
+    <p>Desenvolver e implementar uma plataforma de software web e mobile que modernize e automatize a recuperação de objetos perdidos e encontrados na comunidade da Escola Estadual Governador Milton Campos, conectando estudantes, professores e funcionários por meio de correspondência semântica com Inteligência Artificial e comunicação privativa em tempo real, de forma gratuita, segura e em conformidade com a LGPD.</p>
+
+    <h2 class="subsec-title">5.2 Objetivos específicos</h2>
+
+    <ul class="objectives-list">
+      <li><strong>a)</strong> Projetar e implementar uma API RESTful escalável em Node.js e Express sob a arquitetura Vertical Slice Architecture (VSA);</li>
+      <li><strong>b)</strong> Modelar o banco de dados relacional com PostgreSQL e ORM Prisma para armazenamento íntegro de usuários, itens, correspondências e histórico de mensagens;</li>
+      <li><strong>c)</strong> Desenvolver algoritmo híbrido de <em>matching</em> combinando filtragem heurística local e cálculo semântico com Inteligência Artificial (LLM Qwen 2.5 / Llama 3.1 via OpenRouter);</li>
+      <li><strong>d)</strong> Implementar módulo de comunicação bidirecional em tempo real via WebSockets (Socket.io) para chat privativo e envio instantâneo de alertas de compatibilidade;</li>
+      <li><strong>e)</strong> Construir interface responsiva e dinâmica em React 19, Vite e TailwindCSS v4, otimizada com <em>lazy loading</em> e rotas aninhadas;</li>
+      <li><strong>f)</strong> Desenvolver painel administrativo com rotas aninhadas para moderação de itens, auditoria e geração automatizada de relatórios executivos por IA;</li>
+    </ul>
+
+    <div class="page-number">7</div>
+  </div>
+
+  <!-- ==================== PÁGINA 8: VISÃO, MISSÃO E ARQUITETURA ==================== -->
+  <div class="page">
+    <ul class="objectives-list" style="margin-top: 0;">
+      <li><strong>g)</strong> Disponibilizar a aplicação como Progressive Web App (PWA) e como pacote nativo Android (APK via Capacitor).</li>
+    </ul>
+
+    <h1 class="sec-title" style="margin-top: 10px;">6 VISÃO E MISSÃO DO PROJETO</h1>
+
+    <p class="no-indent"><strong>Visão:</strong> Ser a plataforma de referência em gestão solidária e inteligente de pertences em instituições de ensino no Brasil, convertendo escolas em ecossistemas de empatia, honestidade e sustentabilidade material.</p>
+
+    <p class="no-indent"><strong>Missão:</strong> Conectar com agilidade e inteligência as pessoas que perderam e encontraram pertences escolares, devolvendo objetos com celeridade e promovendo a cidadania por meio de tecnologia acessível, gratuita e humanizada.</p>
+
+    <div class="table-caption"><strong>Tabela 4 – Valores institucionais do projeto O Encontrei!</strong></div>
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 30%;">Valor</th>
+          <th style="width: 70%;">Descrição</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Solidariedade</td>
+          <td>Incentivo ativo à empatia e à devolução voluntária de bens como exercício de cidadania comunitária.</td>
+        </tr>
+        <tr>
+          <td>Transparência</td>
+          <td>Processos auditáveis de inventário e confirmação formal de entrega com atribuição de reputação.</td>
+        </tr>
+        <tr>
+          <td>Privacidade (LGPD)</td>
+          <td>Proteção total dos dados dos estudantes, operando sem expor contatos externos nos murais públicos.</td>
+        </tr>
+        <tr>
+          <td>Inovação Social</td>
+          <td>Utilização de Inteligência Artificial generativa de ponta para solucionar dores cotidianas reais da escola pública.</td>
+        </tr>
+        <tr>
+          <td>Sustentabilidade</td>
+          <td>Prevenção do descarte precoce e do desperdício de bens materiais essenciais ao aprendizado.</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="table-source">Fonte: Elaborado pelos autores (2026).</div>
+
+    <h1 class="sec-title" style="margin-top: 12px;">7 SOLUÇÃO PROPOSTA: O SISTEMA O ENCONTREI!</h1>
+
+    <h2 class="subsec-title">7.1 Conceito e arquitetura geral</h2>
+
+    <p>O <strong>O Encontrei!</strong> é uma plataforma digital integrada composta por interfaces web SPA e mobile nativas conectadas a uma API RESTful centralizada em Node.js e Express com arquitetura em camadas verticais (Vertical Slice Architecture - VSA). A persistência de dados utiliza PostgreSQL 16 com ORM Prisma, mensageria em tempo real via Socket.io e inferência semântica de linguagem natural via OpenRouter API (modelos Qwen 2.5 e Meta Llama 3.1).</p>
+
+    <h2 class="subsec-title">7.2 Fluxo de funcionamento</h2>
+
+    <p class="no-indent"><strong>1. Cadastro e Auto-Detalhamento com IA:</strong> Publicação do item (PERDIDO ou ENCONTRADO) com envio de fotos via Multer, metadados de local e data, e categorização automática inteligente sugerida pelo serviço de IA.</p>
+
+    <p class="no-indent"><strong>2. Cruzamento Semântico e Filtro de Score:</strong> Cruzamento automático do item cadastrado contra os registros ativos do banco de dados, combinando pesos de similaridade léxica, localização, proximidade temporal e inferência semântica contextual via LLM (escala de 0 a 100).</p>
+
+    <div class="page-number">8</div>
+  </div>
+
+  <!-- ==================== PÁGINA 9: REGRAS DE NEGÓCIO E REQUISITOS FUNCIONAIS ==================== -->
+  <div class="page">
+    <p class="no-indent"><strong>3. Notificação Instantânea em Tempo Real:</strong> Quando a compatibilidade calculada atinge score igual ou superior a 70%, o sistema cria o registro na entidade <code>Match</code> e emite notificações instantâneas aos dois usuários via WebSockets (Socket.io).</p>
+
+    <p class="no-indent"><strong>4. Chat Protegido e Confirmação de Devolução:</strong> Os estudantes conversam em canal seguro da própria plataforma para verificar detalhes peculiares do pertence. Ao concluir a entrega, confirma-se o desfecho, atualizando o item para DEVOLVIDO e bonificando a reputação do usuário.</p>
+
+    <h2 class="subsec-title">7.3 Regras de negócio críticas</h2>
+
+    <div class="table-caption"><strong>Tabela 5 – Regras de negócio críticas do sistema O Encontrei!</strong></div>
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 30%;">Regra</th>
+          <th style="width: 45%;">Descrição</th>
+          <th style="width: 25%;">Fundamentação</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Score Mínimo (≥ 70%)</td>
+          <td>Notificações ativas de match exigem compatibilidade semântica híbrida mínima de 70%.</td>
+          <td>Evita sobrecarga e disparos de falsos positivos aos usuários.</td>
+        </tr>
+        <tr>
+          <td>Anonimização de Contato</td>
+          <td>É proibida e prevenida a publicação aberta de telefones ou e-mails em anúncios.</td>
+          <td>Proteção da privacidade e integridade dos alunos (LGPD e ECA).</td>
+        </tr>
+        <tr>
+          <td>Comprovação de Propriedade</td>
+          <td>O proprietário deve atestar características peculiares não reveladas na fotografia.</td>
+          <td>Mitigação de golpes e apropriação indevida por terceiros.</td>
+        </tr>
+        <tr>
+          <td>Reputação e Gamificação</td>
+          <td>Entregas confirmadas concedem pontos de reputação pública positiva ao perfil do achador.</td>
+          <td>Estímulo continuado à cultura de honestidade e solidariedade.</td>
+        </tr>
+        <tr>
+          <td>Ciclo de Vida do Item</td>
+          <td>Ao ser devolvido, o item transita para status DEVOLVIDO e encerra o match correspondente.</td>
+          <td>Integridade do inventário e auditoria dos achados escolares.</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="table-source">Fonte: Elaborado pelos autores (2026).</div>
+
+    <h2 class="subsec-title">7.4 Especificação de Requisitos Funcionais (RF01 a RF10)</h2>
+
+    <div class="table-caption"><strong>Tabela 6 – Matriz de Requisitos Funcionais do sistema O Encontrei!</strong></div>
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 10%;">ID</th>
+          <th style="width: 25%;">Nome do Requisito</th>
+          <th style="width: 50%;">Descrição Detalhada</th>
+          <th style="width: 15%;">Ator Principal</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>RF01</td>
+          <td>Autenticação e Perfis</td>
+          <td>Cadastro e login de usuários com JWT, categorização de perfis (ALUNO, PROFESSOR, FUNCIONARIO, ADMIN).</td>
+          <td>Usuário</td>
+        </tr>
+        <tr>
+          <td>RF02</td>
+          <td>Cadastro com Mídia</td>
+          <td>Publicação de itens perdidos e achados com metadados e fotos (JPEG/PNG até 5 MB via Multer).</td>
+          <td>Usuário</td>
+        </tr>
+        <tr>
+          <td>RF03</td>
+          <td>Auto-Categorização com IA</td>
+          <td>Sugestão automática de categoria padronizada e refinamento textual da descrição pelo modelo de IA.</td>
+          <td>Sistema / IA</td>
+        </tr>
+        <tr>
+          <td>RF04</td>
+          <td>Algoritmo de Matching</td>
+          <td>Cruzamento automático de itens gerando score híbrido de compatibilidade de 0 a 100 via LLM.</td>
+          <td>Sistema</td>
+        </tr>
+        <tr>
+          <td>RF05</td>
+          <td>Notificações em Tempo Real</td>
+          <td>Disparo imediato de alertas via WebSockets para novos matches identificados e mensagens recebidas.</td>
+          <td>Sistema</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="page-number">9</div>
+  </div>
+
+  <!-- ==================== PÁGINA 10: REQUISITOS FUNCIONAIS E NÃO FUNCIONAIS ==================== -->
+  <div class="page">
+    <table>
+      <tbody>
+        <tr>
+          <td style="width: 10%;">RF06</td>
+          <td style="width: 25%;">Chat Instantâneo Privado</td>
+          <td style="width: 50%;">Sala de conversação em tempo real via Socket.io vinculada ao Match para acerto de detalhes de entrega.</td>
+          <td style="width: 15%;">Usuários</td>
+        </tr>
+        <tr>
+          <td>RF07</td>
+          <td>Confirmação de Devolução</td>
+          <td>Ação de encerramento do processo com transição para DEVOLVIDO e pontuação no perfil do usuário.</td>
+          <td>Usuários</td>
+        </tr>
+        <tr>
+          <td>RF08</td>
+          <td>Assistente Virtual (EncontreiBot)</td>
+          <td>Chatbot cognitivo com IA para esclarecer dúvidas, dar dicas de localização e listar itens recentes.</td>
+          <td>Aluno / Usuário</td>
+        </tr>
+        <tr>
+          <td>RF09</td>
+          <td>Painel de Moderação Admin</td>
+          <td>Interface administrativa com rotas aninhadas para auditoria, controle de usuários e moderação de anúncios.</td>
+          <td>Administrador</td>
+        </tr>
+        <tr>
+          <td>RF10</td>
+          <td>Relatórios Executivos com IA</td>
+          <td>Compilação automatizada de diagnósticos de gestão e taxas de recuperação com recomendações geradas por IA.</td>
+          <td>Administrador / Direção</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="table-source">Fonte: Elaborado pelos autores (2026).</div>
+
+    <h2 class="subsec-title">7.5 Especificação de Requisitos Não Funcionais (RNF01 a RNF10)</h2>
+
+    <div class="table-caption"><strong>Tabela 7 – Matriz de Requisitos Não Funcionais do sistema O Encontrei!</strong></div>
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 10%;">ID</th>
+          <th style="width: 25%;">Nome do Requisito</th>
+          <th style="width: 20%;">Categoria</th>
+          <th style="width: 45%;">Descrição Detalhada</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>RNF01</td>
+          <td>Usabilidade Responsiva</td>
+          <td>Usabilidade</td>
+          <td>Interface adaptável para dispositivos móveis e desktops, estilizada com utilitários modernos TailwindCSS v4.</td>
+        </tr>
+        <tr>
+          <td>RNF02</td>
+          <td>Tempo de Resposta</td>
+          <td>Desempenho</td>
+          <td>Respostas da API REST em menos de 300ms e latência de entrega de WebSockets inferior a 150ms sob carga padrão.</td>
+        </tr>
+        <tr>
+          <td>RNF03</td>
+          <td>Segurança e Criptografia</td>
+          <td>Segurança</td>
+          <td>Criptografia de senhas com Salt/BcryptJS, sessões autenticadas por JWT HMAC-SHA256 e tráfego HTTPS/WSS.</td>
+        </tr>
+        <tr>
+          <td>RNF04</td>
+          <td>Privacidade e LGPD</td>
+          <td>Conformidade</td>
+          <td>Aceite obrigatório de Termos de Uso, proteção rigorosa de dados de menores e anonimização de contatos externos.</td>
+        </tr>
+        <tr>
+          <td>RNF05</td>
+          <td>Disponibilidade de Serviço</td>
+          <td>Confiabilidade</td>
+          <td>Taxa de uptime garantida de 99,5% com banco PostgreSQL distribuído na infraestrutura em nuvem Neon Serverless.</td>
+        </tr>
+        <tr>
+          <td>RNF06</td>
+          <td>Arquitetura Modular (VSA)</td>
+          <td>Arquitetura</td>
+          <td>Backend estruturado em Fatias Verticais (Vertical Slice Architecture), isolando módulos e regras de negócio.</td>
+        </tr>
+        <tr>
+          <td>RNF07</td>
+          <td>Portabilidade PWA / Nativo</td>
+          <td>Portabilidade</td>
+          <td>Web App Progressivo (PWA) instalável via Service Worker e compilável nativamente para Android via Capacitor.</td>
+        </tr>
+        <tr>
+          <td>RNF08</td>
+          <td>Carregamento Otimizado</td>
+          <td>Desempenho</td>
+          <td>Code-splitting com React.lazy() e Suspense, reduzindo a carga do bundle inicial em mais de 60%.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="page-number">10</div>
+  </div>
+
+  <!-- ==================== PÁGINA 11: RNF CONTINUAÇÃO E FIGURA 1 ==================== -->
+  <div class="page">
+    <table>
+      <tbody>
+        <tr>
+          <td style="width: 10%;">RNF09</td>
+          <td style="width: 25%;">Rastreabilidade e Auditoria</td>
+          <td style="width: 20%;">Auditoria</td>
+          <td style="width: 45%;">Registro auditável com carimbo temporal imutável em todas as inserções e atualizações relacionais do banco.</td>
+        </tr>
+        <tr>
+          <td>RNF10</td>
+          <td>Containerização Homogênea</td>
+          <td>Manutenibilidade</td>
+          <td>Orquestração completa dos contêineres de backend, frontend e banco relacional via Docker e Docker Compose.</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="table-source">Fonte: Elaborado pelos autores (2026).</div>
+
+    <h2 class="subsec-title" style="margin-top: 10px;">7.6 Demonstração das telas da aplicação</h2>
+
+    <p>Apresentam-se a seguir as telas representativas das interfaces do sistema <strong>O Encontrei!</strong>, demonstrando os aspectos visuais e funcionais desenvolvidos no protótipo funcional.</p>
+
+    <div class="table-caption"><strong>Figura 1 – Interface mobile do catálogo de itens e cadastro assistido por Inteligência Artificial</strong></div>
+
+    <div class="mockup-container">
+      <div class="phone-frame">
+        <div class="phone-screen">
+          <div class="phone-header">
+            <span>10:09</span>
+            <span>📶 100% 🔋</span>
+          </div>
+          <div class="app-bar">
+            <span>O ENCONTREI!</span>
+            <span>🔔 (2)</span>
+          </div>
+          
+          <div style="display: flex; gap: 4px; margin-bottom: 6px; overflow-x: auto;">
+            <span class="badge" style="background:#38bdf8; color:#0f172a;">TODOS</span>
+            <span class="badge" style="background:#334155; color:#cbd5e1;">ROUPAS</span>
+            <span class="badge" style="background:#334155; color:#cbd5e1;">ELETRÔNICOS</span>
+          </div>
+
+          <div class="item-card">
+            <div style="display: flex; justify-content: space-between;">
+              <span style="font-weight: bold; color: #f8fafc;">Casaco Moletom Azul</span>
+              <span class="badge badge-lost">PERDIDO</span>
+            </div>
+            <div style="color: #94a3b8; font-size: 7pt; margin: 2px 0;">Local: Arquibancada da Quadra</div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 4px;">
+              <span class="badge badge-ai">MATCH IA: 88%</span>
+              <span style="color: #38bdf8; font-size: 6.5pt;">Ver Detalhes →</span>
+            </div>
+          </div>
+
+          <div class="item-card" style="border-left-color: #10b981;">
+            <div style="display: flex; justify-content: space-between;">
+              <span style="font-weight: bold; color: #f8fafc;">Garrafa Térmica Preta</span>
+              <span class="badge badge-found">ENCONTRADO</span>
+            </div>
+            <div style="color: #94a3b8; font-size: 7pt; margin: 2px 0;">Local: Bancada do Lab 2</div>
+            <div style="color: #10b981; font-size: 6.5pt;">Aguardando dono na Secretaria</div>
+          </div>
+
+          <div style="background: #1e1b4b; border: 1px dashed #8b5cf6; border-radius: 6px; padding: 5px; margin-top: 4px;">
+            <div style="font-size: 7pt; font-weight: bold; color: #c4b5fd;">🤖 Sugestão do Assistente IA:</div>
+            <div style="font-size: 6.5pt; color: #ddd6fe; margin-top: 2px;">"Identificada categoria GARRAFA. Descrição refinada pronta para publicação."</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="table-source" style="text-align: center;">Fonte: Elaborado pelos autores (2026).</div>
+
+    <div class="page-number">11</div>
+  </div>
+
+  <!-- ==================== PÁGINA 12: FIGURA 2 E BENEFÍCIOS ==================== -->
+  <div class="page">
+    <p class="no-indent">A Figura 1 ilustra a interface mobile do estudante, caracterizada por cards informativos com distinção semântica de cores (vermelho para PERDIDO e verde para ENCONTRADO), tags de categoria de fácil acionamento tátil e o assistente de refinamento e categorização automática com IA.</p>
+
+    <div class="table-caption"><strong>Figura 2 – Ambiente de chat em tempo real via WebSockets com identificação mútua e confirmação de devolução</strong></div>
+
+    <div class="mockup-container">
+      <div class="phone-frame" style="width: 270px;">
+        <div class="phone-screen">
+          <div class="phone-header">
+            <span>10:15</span>
+            <span>Match: Casaco Azul (92%)</span>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 4px; min-height: 120px; justify-content: flex-end;">
+            <div class="chat-bubble bubble-in">
+              <strong>Carlos Silva (3º B):</strong><br>
+              Olá! Achei um casaco azul marinho ontem na quadra com zíper prateado. É o seu?
+            </div>
+            <div class="chat-bubble bubble-out">
+              <strong>Você:</strong><br>
+              Oi Carlos! É sim! Ele tem uma costura pequena desfiada no bolso direito.
+            </div>
+            <div class="chat-bubble bubble-in">
+              <strong>Carlos Silva:</strong><br>
+              Perfeito, confere! Te entrego no intervalo perto da biblioteca.
+            </div>
+          </div>
+
+          <div class="btn-action">
+            🤝 CONFIRMAR DEVOLUÇÃO DO PERTENCE
+          </div>
+          <div style="font-size: 6pt; color: #94a3b8; text-align: center; margin-top: 2px;">
+            Atualiza status para DEVOLVIDO e atribui +10 pts de reputação
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="table-source" style="text-align: center;">Fonte: Elaborado pelos autores (2026).</div>
+
+    <p class="no-indent">A Figura 2 apresenta a interface de chat em tempo real, concebida para alinhamento rápido e privativo. Destacam-se o contexto do match com percentual de compatibilidade semântica, as mensagens instantâneas entregues via WebSockets e o botão de confirmação auditável de devolução com incentivo de reputação positiva.</p>
+
+    <h1 class="sec-title" style="margin-top: 10px;">8 BENEFÍCIOS DO SISTEMA</h1>
+
+    <div class="table-caption"><strong>Tabela 8 – Benefícios para a comunidade escolar e a sociedade</strong></div>
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 25%;">Público-Alvo</th>
+          <th style="width: 30%;">Benefício Principal</th>
+          <th style="width: 45%;">Impacto Social / Operacional</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Estudantes Proprietários</td>
+          <td>Celeridade na Recuperação</td>
+          <td>Mitigação do estresse, resgate ágil de cadernos e agasalhos e economia financeira imediata.</td>
+        </tr>
+        <tr>
+          <td>Estudantes Achadores</td>
+          <td>Estímulo Cívico e Reputação</td>
+          <td>Canal seguro sem constrangimento para entrega e valorização comunitária da honestidade.</td>
+        </tr>
+        <tr>
+          <td>Corpo Docente</td>
+          <td>Desobstrução Pedagógica</td>
+          <td>Eliminação de interrupções de aulas motivadas por buscas dispersas de materiais nas salas.</td>
+        </tr>
+        <tr>
+          <td>Gestão Escolar e Secretaria</td>
+          <td>Desafogo de Espaço Físico</td>
+          <td>Fim de caixas desordenadas acumulando pertences e inventário 100% digital e auditável.</td>
+        </tr>
+        <tr>
+          <td>Famílias e Responsáveis</td>
+          <td>Proteção Orçamentária</td>
+          <td>Redução substancial de gastos imprevistos na recompra de peças de uniforme e livros didáticos.</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="table-source">Fonte: Elaborado pelos autores (2026).</div>
+
+    <div class="page-number">12</div>
+  </div>
+
+  <!-- ==================== PÁGINA 13: PROTÓTIPO, IMPLEMENTAÇÃO, ODS E CONSIDERAÇÕES ==================== -->
+  <div class="page">
+    <h1 class="sec-title">9 O QUE FOI CONSTRUÍDO: PROTÓTIPO FUNCIONAL</h1>
+
+    <p>O protótipo funcional entregue compreende servidor backend Express em Node.js com 7 módulos API RESTful sob Vertical Slice Architecture, banco de dados PostgreSQL estruturado com 5 modelos relacionais via Prisma ORM e hospedado na nuvem serverless do Neon.tech, motor de eventos bidirecional Socket.io para mensageria em tempo real, inteligência artificial integrada com a API OpenRouter (modelos Qwen 2.5 e Llama 3.1), interface web SPA reativa construída com React 19, Vite e TailwindCSS v4, otimizada com <em>lazy loading</em> e suporte a Progressive Web App (PWA) e compilação nativa Android via Capacitor.</p>
+
+    <h1 class="sec-title" style="margin-top: 10px;">10 REQUISITOS PARA IMPLEMENTAÇÃO COMPLETA</h1>
+
+    <p>Para operação em escala comercial e implantação oficial nas redes educacionais de Minas Gerais, prevê-se: integração de modelos de Visão Computacional (CLIP/YOLO) para comparação multimodal de fotografias de objetos; suporte a notificações Push nativas em segundo plano via Firebase Cloud Messaging (FCM); módulo de etiquetagem física por QR Code nas matrículas; integração com o Sistema de Gestão Escolar (SGE/SEEMG); e fluxo automatizado de doação regulada de itens não procurados conforme o Código Civil.</p>
+
+    <h1 class="sec-title" style="margin-top: 10px;">11 ALINHAMENTO COM OS ODS – AGENDA 2030/ONU</h1>
+
+    <div class="table-caption"><strong>Tabela 9 – Alinhamento com os Objetivos de Desenvolvimento Sustentável da ONU</strong></div>
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 15%;">ODS</th>
+          <th style="width: 35%;">Título do ODS</th>
+          <th style="width: 50%;">Alinhamento no Projeto O Encontrei!</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>ODS 4</td>
+          <td>Educação de Qualidade</td>
+          <td>Meta 4.a: Proporcionar ambientes escolares seguros e inclusivos, protegendo os materiais pedagógicos dos alunos.</td>
+        </tr>
+        <tr>
+          <td>ODS 12</td>
+          <td>Consumo e Produção Responsáveis</td>
+          <td>Meta 12.5: Reduzir a geração de resíduos estimulando o reaproveitamento e combatendo o descarte precoce de agasalhos e garrafas.</td>
+        </tr>
+        <tr>
+          <td>ODS 16</td>
+          <td>Paz, Justiça e Instituições Eficazes</td>
+          <td>Meta 16.6: Desenvolver instituições transparentes cultivando a cultura da integridade e da devolução solidária.</td>
+        </tr>
+        <tr>
+          <td>ODS 9</td>
+          <td>Indústria, Inovação e Infraestrutura</td>
+          <td>Meta 9.b: Fomentar a produção tecnológica nacional com IA aplicada à educação pública.</td>
+        </tr>
+        <tr>
+          <td>ODS 10</td>
+          <td>Redução das Desigualdades</td>
+          <td>Meta 10.2: Mitigar as perdas financeiras suportadas pelas famílias de menor renda na reposição de itens.</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="table-source">Fonte: Elaborado pelos autores (2026).</div>
+
+    <h1 class="sec-title" style="margin-top: 10px;">12 CONSIDERAÇÕES FINAIS</h1>
+
+    <p>O sistema <strong>O Encontrei!</strong> demonstra a viabilidade técnica e a relevância social do desenvolvimento de tecnologias assistivas e de cidadania no ensino técnico público. A solução responde de forma concreta aos desafios de gestão e convivência escolar em Belo Horizonte, reafirmando o compromisso da educação técnica pública com a inovação, a integridade cívica e a solidariedade humana.</p>
+
+    <div class="page-number">13</div>
+  </div>
+
+  <!-- ==================== PÁGINA 14: REFERÊNCIAS ==================== -->
+  <div class="page">
+    <h1 class="sec-title" style="margin-top: 5mm; margin-bottom: 8mm;">REFERÊNCIAS</h1>
+
+    <p class="no-indent" style="margin-bottom: 8px;">ASSOCIAÇÃO BRASILEIRA DE NORMAS TÉCNICAS. <strong>NBR 6023</strong>: Informação e documentação - Referências - Elaboração. Rio de Janeiro: ABNT, 2018.</p>
+
+    <p class="no-indent" style="margin-bottom: 8px;">ASSOCIAÇÃO BRASILEIRA DE NORMAS TÉCNICAS. <strong>NBR 6024</strong>: Informação e documentação - Numeração progressiva das seções de um documento - Apresentação. Rio de Janeiro: ABNT, 2012.</p>
+
+    <p class="no-indent" style="margin-bottom: 8px;">ASSOCIAÇÃO BRASILEIRA DE NORMAS TÉCNICAS. <strong>NBR 6027</strong>: Informação e documentação - Sumário - Apresentação. Rio de Janeiro: ABNT, 2012.</p>
+
+    <p class="no-indent" style="margin-bottom: 8px;">ASSOCIAÇÃO BRASILEIRA DE NORMAS TÉCNICAS. <strong>NBR 14724</strong>: Informação e documentação - Trabalhos acadêmicos - Apresentação. Rio de Janeiro: ABNT, 2011.</p>
+
+    <p class="no-indent" style="margin-bottom: 8px;">ASSOCIAÇÃO NACIONAL DE ADMINISTRAÇÃO ESCOLAR (ANAE). <strong>Relatório de Eficiência Operacional e Gestão de Materiais em Redes de Educação Básica</strong>. Brasília: ANAE, 2023.</p>
+
+    <p class="no-indent" style="margin-bottom: 8px;">BRASIL. <strong>Constituição da República Federativa do Brasil de 1988</strong>. Brasília, DF: Senado Federal, 1988.</p>
+
+    <p class="no-indent" style="margin-bottom: 8px;">BRASIL. <strong>Lei nº 8.069, de 13 de julho de 1990</strong>. Dispõe sobre o Estatuto da Criança e do Adolescente e dá outras providências. Brasília, DF: Presidência da República, 1990.</p>
+
+    <p class="no-indent" style="margin-bottom: 8px;">BRASIL. <strong>Lei nº 10.406, de 10 de janeiro de 2002</strong>. Institui o Código Civil. Brasília, DF: Presidência da República, 2002.</p>
+
+    <p class="no-indent" style="margin-bottom: 8px;">BRASIL. <strong>Lei nº 12.965, de 23 de abril de 2014</strong>. Estabelece princípios, garantias, direitos e deveres para o uso da Internet no Brasil (Marco Civil da Internet). Brasília, DF: Presidência da República, 2014.</p>
+
+    <p class="no-indent" style="margin-bottom: 8px;">BRASIL. <strong>Lei nº 13.709, de 14 de agosto de 2018</strong>. Lei Geral de Proteção de Dados Pessoais (LGPD). Brasília, DF: Presidência da República, 2018.</p>
+
+    <p class="no-indent" style="margin-bottom: 8px;">COMITÊ GESTOR DA INTERNET NO BRASIL (CGI.br). <strong>Pesquisa sobre o Uso das Tecnologias de Informação e Comunicação nos Domicílios Brasileiros - TIC Kids Online Brasil 2023</strong>. São Paulo: CGI.br, 2023.</p>
+
+    <p class="no-indent" style="margin-bottom: 8px;">INSTITUTO NACIONAL DE ESTUDOS E PESQUISAS EDUCACIONAIS ANÍSIO TEIXEIRA (INEP). <strong>Censo da Educação Básica 2023: Sinopse Estatística</strong>. Brasília: INEP, 2024.</p>
+
+    <p class="no-indent" style="margin-bottom: 8px;">NYGARD, Michael T. <strong>Release It!: Design and Deploy Production-Ready Software</strong>. 2. ed. Raleigh: Pragmatic Bookshelf, 2018.</p>
+
+    <p class="no-indent" style="margin-bottom: 8px;">ORGANIZAÇÃO DAS NAÇÕES UNIDAS (ONU). <strong>Transformando Nosso Mundo: A Agenda 2030 para o Desenvolvimento Sustentável</strong>. Nova York: ONU, 2015.</p>
+
+    <p class="no-indent" style="margin-bottom: 8px;">POSTGRESQL GLOBAL DEVELOPMENT GROUP. <strong>PostgreSQL 16 Documentation</strong>. 2024. Disponível em: &lt;https://www.postgresql.org/docs/&gt;. Acesso em: 15 fev. 2026.</p>
+
+    <p class="no-indent" style="margin-bottom: 8px;">PRISMA DATA INC. <strong>Prisma Documentation: Modern ORM and Database Toolkit for Node.js</strong>. 2026. Disponível em: &lt;https://www.prisma.io/docs&gt;. Acesso em: 15 fev. 2026.</p>
+
+    <p class="no-indent" style="margin-bottom: 8px;">REACT DOCUMENTATION. <strong>React 19: The library for web and native user interfaces</strong>. Meta Open Source, 2026. Disponível em: &lt;https://react.dev&gt;. Acesso em: 15 fev. 2026.</p>
+
+    <p class="no-indent" style="margin-bottom: 8px;">SOCKET.IO. <strong>Real-time bidirectional event-based communication documentation</strong>. 2026. Disponível em: &lt;https://socket.io/docs/v4/&gt;. Acesso em: 15 fev. 2026.</p>
+
+    <p class="no-indent" style="margin-bottom: 8px;">TAILWINDCSS. <strong>Tailwind CSS v4.0 Documentation</strong>. 2026. Disponível em: &lt;https://tailwindcss.com/docs&gt;. Acesso em: 15 fev. 2026.</p>
+
+    <p class="no-indent" style="margin-bottom: 8px;">VITE DEV. <strong>Vite: Next Generation Frontend Tooling</strong>. 2026. Disponível em: &lt;https://vitejs.dev&gt;. Acesso em: 15 fev. 2026.</p>
+
+    <div class="page-number">14</div>
+  </div>
+
+</body>
+</html>

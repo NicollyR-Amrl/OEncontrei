@@ -2,6 +2,9 @@
   "name": "o-encontrei-app",
   "version": "1.0.0",
   "private": true,
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "build": "cd frontend && npm install && npm run build",
     "postinstall": "cd backend && npm install && npx prisma generate"

@@ -48,9 +48,10 @@ const registrar = async (req, res) => {
     });
 
     // Gerar token
+    const secret = process.env.JWT_SECRET || 'super-segredo-encontrei-2024-mude-em-producao';
     const token = jwt.sign(
       { id: usuario.id, email: usuario.email, cargo: usuario.cargo },
-      process.env.JWT_SECRET,
+      secret,
       { expiresIn: '7d' }
     );
 
@@ -93,9 +94,10 @@ const login = async (req, res) => {
     }
 
     // Gerar token
+    const secret = process.env.JWT_SECRET || 'super-segredo-encontrei-2024-mude-em-producao';
     const token = jwt.sign(
       { id: usuario.id, email: usuario.email, cargo: usuario.cargo },
-      process.env.JWT_SECRET,
+      secret,
       { expiresIn: '7d' }
     );
 
@@ -116,7 +118,7 @@ const login = async (req, res) => {
     });
   } catch (erro) {
     console.error('Erro no login:', erro);
-    res.status(500).json({ erro: true, mensagem: erro.message || 'Erro ao fazer login', stack: erro.stack });
+    res.status(500).json({ erro: true, mensagem: 'Erro ao fazer login' });
   }
 };
 
